@@ -5,7 +5,7 @@
 ** @Filename:				Logs.go
 **
 ** @Last modified by:		Tbouder
-** @Last modified time:		Monday 14 October 2019 - 12:11:41
+** @Last modified time:		Monday 14 October 2019 - 12:16:42
 *******************************************************************************/
 
 //Package logs provide some simple 'prettier' logs for a basic go usage
@@ -18,7 +18,6 @@ import		"runtime"
 import		"net/http"
 import		"github.com/fatih/color"
 import		"github.com/davecgh/go-spew/spew"
-import		"github.com/ztrue/tracerr"
 import		"strings"
 import		"strconv"
 
@@ -75,10 +74,6 @@ func	Error(err interface{}) {
 	t := time.Now().Format("2006/01/02 15:04:05")
 
 	spew.Printf("%s %s %s %s %s\n", t, colorMagenta(str0), colorRed(str1), colorCyan(str2), colorRed(err))
-}
-
-func	ExplainedError(err error) {
-	tracerr.PrintSourceColor(err)
 }
 
 //Success function logs a success message
