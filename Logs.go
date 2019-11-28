@@ -5,7 +5,7 @@
 ** @Filename:				Logs.go
 **
 ** @Last modified by:		Tbouder
-** @Last modified time:		Monday 14 October 2019 - 12:16:42
+** @Last modified time:		Thursday 28 November 2019 - 17:37:05
 *******************************************************************************/
 
 //Package logs provide some simple 'prettier' logs for a basic go usage
@@ -65,7 +65,7 @@ func	ErrorCrash(err interface{}) {
 }
 
 //ErrorCrash function logs an error
-func	Error(err interface{}) {
+func	Error(err ...interface{}) {
 	pc, _, line, _ := runtime.Caller(1)
 
 	str0 := `[` + strconv.Itoa(runtime.NumGoroutine()) + `]`
@@ -73,7 +73,20 @@ func	Error(err interface{}) {
 	str2 := `(` + runtime.FuncForPC(pc).Name() + `:` + strconv.Itoa(line) + `)`
 	t := time.Now().Format("2006/01/02 15:04:05")
 
-	spew.Printf("%s %s %s %s %s\n", t, colorMagenta(str0), colorRed(str1), colorCyan(str2), colorRed(err))
+	if (len(err) == 1) {
+		spew.Config.Indent = "    "
+		fmt.Printf("%s", colorYellow("----------------------------------\n"))
+		spew.Printf("%s %s %s %s %s\n", t, colorMagenta(str0), colorRed(str1), colorCyan(str2), colorRed(err[0]))
+		fmt.Printf("%s", colorYellow("----------------------------------\n"))
+	} else {
+		spew.Config.Indent = "    "
+		fmt.Printf("%s", colorRed("----------------------------------\n"))
+		spew.Printf("%s %s %s %s\n", t, colorMagenta(str0), colorRed(str1), colorCyan(str2))
+		for _, each := range err {
+			spew.Dump(each)
+		}
+		fmt.Printf("%s", colorRed("----------------------------------\n"))
+	}
 }
 
 //Success function logs a success message
