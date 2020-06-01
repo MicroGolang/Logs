@@ -75,9 +75,7 @@ func	Error(err ...interface{}) {
 
 	if (len(err) == 1) {
 		spew.Config.Indent = "    "
-		fmt.Printf("%s", colorYellow("----------------------------------\n"))
 		spew.Printf("%s %s %s %s %s\n", t, colorMagenta(str0), colorRed(str1), colorCyan(str2), colorRed(err[0]))
-		fmt.Printf("%s", colorYellow("----------------------------------\n"))
 	} else {
 		spew.Config.Indent = "    "
 		fmt.Printf("%s", colorRed("----------------------------------\n"))
